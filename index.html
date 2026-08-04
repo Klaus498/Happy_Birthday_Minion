@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Dr. Thatikonda Srujana! 🌼</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600&family=Pacifico&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            /* Beautiful girly gradient background for the whole page */
+            background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden; /* Prevents scrolling */
+            color: #5a3e5d;
+            text-align: center;
+            cursor: pointer; 
+            user-select: none;
+        }
+
+        /* --- GLOBAL SPARKLE OVERLAY --- */
+        .global-sparkles {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.9) 1.5px, transparent 2px),
+                              radial-gradient(rgba(255, 255, 255, 0.6) 1px, transparent 2px);
+            background-size: 40px 40px, 25px 25px;
+            background-position: 0 0, 15px 15px;
+            animation: floatSparkles 8s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+        @keyframes floatSparkles {
+            0% { background-position: 0 0, 15px 15px; }
+            100% { background-position: 40px 40px, 55px 55px; }
+        }
+
+        /* Floating Memories Emojis */
+        .floating-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+        .float-item {
+            position: absolute;
+            animation: floatUp 15s linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg) scale(0.8); }
+            100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); }
+        }
+
+        /* Page Container Setup */
+        .page {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+            transform: scale(0.92);
+            z-index: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .page.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            z-index: 2;
+        }
+
+        /* --- UNIFIED MAGICAL GLASS CARDS FOR ALL PAGES --- */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px); /* Frosted glass effect */
+            -webkit-backdrop-filter: blur(12px);
+            padding: 40px 30px;
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(232, 62, 140, 0.25), 
+                        inset 0 0 25px rgba(255, 255, 255, 0.9); /* Inner glow */
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            animation: subtleFloat 4s ease-in-out infinite alternate;
+        }
+        @keyframes subtleFloat {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-8px); }
+        }
+
+        /* Text Styling */
+        .intro-birthday {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.8rem;
+            color: #e83e8c;
+            margin: 0 0 10px 0;
+            display: block;
+            text-shadow: 2px 2px 0px white, 4px 4px 5px rgba(232, 62, 140, 0.2);
+        }
+        .intro-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.6rem;
+            color: #fca311;
+            margin: 0;
+            display: block;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+        .intro-icons {
+            display: flex; gap: 15px; justify-content: center;
+            margin-top: 20px; font-size: 1.8rem;
+        }
+        
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: #e83e8c;
+            margin-bottom: 15px; margin-top: 0;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+        }
+        p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #4a2e4d;
+            font-weight: 400;
+        }
+        .highlight {
+            color: #e83e8c;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        /* Video Player Setup (No controls & clicks disabled) */
+        .video-container {
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(232, 62, 140, 0.3);
+            border: 5px solid #fff;
+            margin-bottom: 10px;
+            pointer-events: none; /* Prevents any user interaction on the video */
+        }
+        video {
+            width: 100%;
+            display: block;
+        }
+
+        /* Tap Indicator */
+        .tap-indicator {
+            position: fixed;
+            bottom: 30px; left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            color: #e83e8c;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 25px;
+            border-radius: 30px;
+            box-shadow: 0 5px 20px rgba(232, 62, 140, 0.4);
+            z-index: 100;
+            animation: pulseTap 1.5s infinite;
+            pointer-events: none;
+            border: 2px solid #ffe3ec;
+        }
+        @keyframes pulseTap {
+            0%, 100% { transform: translate(-50%, 0) scale(1); }
+            50% { transform: translate(-50%, -8px) scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Global Sparkles that cover the whole page -->
+    <div class="global-sparkles"></div>
+
+    <!-- Floating Background Emojis -->
+    <div class="floating-bg" id="bg-elements"></div>
+
+    <!-- PAGE 1: First Wishes -->
+    <div id="page-1" class="page active">
+        <div class="glass-box">
+            <span class="intro-birthday">Happy Birthday</span>
+            <span class="intro-name">My Minion! 💛</span>
+            <span class="intro-name" style="font-size: 1.9rem; color: #5a3e5d; margin-top: 10px;">Dr. Thatikonda Srujana</span>
+            <div class="intro-icons">
+                <span>🌼</span> <span>🍫</span> <span>🛵</span> <span>🧋</span> <span>🌧️</span> <span>🚌</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2: Emotional Apology -->
+    <div id="page-2" class="page">
+        <div class="glass-box">
+            <h2 style="font-size: 2.3rem;">Before anything else...</h2>
+            <p>Firstly, I am so sorry for hurting you in all the ways I have until now. I promise I never intended to hurt you. 😔</p>
+            <p>I'm also sorry for forgetting the things you tell me. I may forget some of the things you say, but <span class="highlight">I can never forget you.</span></p>
+            <p>You are a gift of life that God has given me in the form of a friend, and I don't want to lose you in any way. No matter how many fights we get into, we should always find our way back to our friendship every single time. 🤞❤️</p>
+        </div>
+    </div>
+
+    <!-- PAGE 3: The Birthday Sorry Note -->
+    <div id="page-3" class="page">
+        <div class="glass-box">
+            <h2>I'm also sorry... 🥺</h2>
+            <p>You made my birthday so incredibly special on <span class="highlight">March 31st</span>, and it genuinely breaks my heart that I couldn't do the same for you today.</p>
+            <p>I feel really sad that I couldn't be there to see you on your special day.</p>
+            <p>I really wish I was there to celebrate <span class="highlight">August 13th</span> with you, but I promise we will meet up very soon to make up for it! ❤️</p>
+        </div>
+    </div>
+
+    <!-- PAGE 4: The Gift Teaser -->
+    <div id="page-4" class="page">
+        <div class="glass-box">
+            <h2 style="font-size: 3rem;">However... ✨</h2>
+            <p style="font-size: 1.4rem; font-weight: 600; margin-top: 20px;">Since I couldn't be there in person, I arranged a little something for you.</p>
+            <p style="font-size: 1.2rem;">I have a short, sweet birthday gift waiting on the next page... 🎀</p>
+        </div>
+    </div>
+
+    <!-- PAGE 5: Auto-playing Video -->
+    <div id="page-5" class="page">
+        <div class="glass-box">
+            <h2 style="font-size: 2.2rem;">For You 🎂</h2>
+            <p style="font-size: 1rem; margin-bottom: 15px;">These wonderful kids are cutting a cake just for your birthday!</p>
+            
+            <div class="video-container">
+                <!-- Video plays automatically, no controls attached -->
+                <video id="bday-video" playsinline>
+                    <source src="cake.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 6: Sarcastic Note -->
+    <div id="page-6" class="page">
+        <div class="glass-box">
+            <h2 style="font-size: 2.5rem;">On another note... 🙄</h2>
+            <p style="font-size: 1.5rem; font-weight: 600; color: #e83e8c;">Start earning early rey!</p>
+            <p>I have a <span class="highlight">LOT</span> of things to buy from your money. So please hurry up and get rich quickly. 🛍️💸😎</p>
+        </div>
+    </div>
+
+    <!-- PAGE 7: Final Birthday Wishes -->
+    <div id="page-7" class="page">
+        <div class="glass-box">
+            <h2 style="font-size: 3rem;">Happy Birthday Again! 🎉🥳</h2>
+            <p style="font-size: 1.3rem;">Wishing you the happiest year ahead filled with endless joy, smiles, and love! ❤️🌼</p>
+            <p style="font-size: 1.5rem; color: #e83e8c; font-weight: 600;">See you very soon, Minion! 🥰</p>
+        </div>
+    </div>
+
+    <!-- Global Tap Indicator -->
+    <div class="tap-indicator" id="tap-text">Tap anywhere to continue ✨</div>
+
+    <script>
+        // Floating Emojis Generation
+        const emojis = ['🌼', '🍫', '🥤', '🛵', '🧋', '🌧️', '🏍️', '🚌', '✨', '🌸', '💖'];
+        const bgContainer = document.getElementById('bg-elements');
+        
+        for(let i = 0; i < 30; i++) {
+            let div = document.createElement('div');
+            div.className = 'float-item';
+            div.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            div.style.left = Math.random() * 100 + 'vw';
+            div.style.animationDuration = (Math.random() * 12 + 10) + 's';
+            div.style.animationDelay = (Math.random() * 5) + 's';
+            div.style.fontSize = (Math.random() * 1.5 + 1.2) + 'rem';
+            bgContainer.appendChild(div);
+        }
+
+        // Page Navigation Logic
+        let currentPage = 1;
+        const totalPages = 7;
+        const tapIndicator = document.getElementById('tap-text');
+        const video = document.getElementById('bday-video');
+
+        function goToPage(pageNumber) {
+            document.getElementById(`page-${currentPage}`).classList.remove('active');
+            currentPage = pageNumber;
+            document.getElementById(`page-${currentPage}`).classList.add('active');
+
+            // Page 5: Video Page Auto-play & Hide Tap Indicator
+            if (currentPage === 5) {
+                tapIndicator.style.display = 'none';
+                document.body.style.cursor = 'default';
+                video.play().catch(err => console.log("Autoplay blocked:", err));
+            } 
+            // Page 6: Sarcastic Note (Bring tap indicator back)
+            else if (currentPage === 6) {
+                tapIndicator.style.display = 'block';
+                document.body.style.cursor = 'pointer';
+            }
+            // Page 7: Final Page setup (Hide tap indicator for good)
+            else if (currentPage === 7) {
+                tapIndicator.style.display = 'none';
+                document.body.style.cursor = 'default';
+            }
+        }
+
+        // Click handler to advance pages manually (Pages 1->4 and 6->7)
+        document.body.addEventListener('click', function() {
+            if (currentPage < 5 || currentPage === 6) {
+                goToPage(currentPage + 1);
+            }
+        });
+
+        // Automatically transition to Page 6 when the video ends
+        video.addEventListener('ended', function() {
+            goToPage(6);
+        });
+    </script>
+</body>
+</html>

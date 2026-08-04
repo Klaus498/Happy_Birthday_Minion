@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Dr. Thatikonda Srujana! 🌼</title>
+    <title>Happy Birthday Minion! 🌻</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600&family=Pacifico&display=swap');
+        /* Imported a softer, more feminine font (Quicksand) for the body */
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;600;700&family=Pacifico&display=swap');
 
         body {
             margin: 0;
             padding: 0;
-            /* Beautiful girly gradient background for the whole page */
             background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden; /* Prevents scrolling */
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
             color: #5a3e5d;
             text-align: center;
             cursor: pointer; 
             user-select: none;
         }
 
-        /* --- GLOBAL SPARKLE OVERLAY --- */
+        /* Global Sparkles */
         .global-sparkles {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -37,13 +37,13 @@
             100% { background-position: 40px 40px, 55px 55px; }
         }
 
-        /* Floating Memories Emojis */
+        /* Floating Background Emojis (Refined for aesthetics) */
         .floating-bg {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             pointer-events: none;
             z-index: 0;
-            opacity: 0.5;
+            opacity: 0.25; 
         }
         .float-item {
             position: absolute;
@@ -54,7 +54,7 @@
             100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); }
         }
 
-        /* Page Container Setup */
+        /* Page Container */
         .page {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -77,15 +77,15 @@
             z-index: 2;
         }
 
-        /* --- UNIFIED MAGICAL GLASS CARDS FOR ALL PAGES --- */
+        /* Glass Cards */
         .glass-box {
             background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(12px); /* Frosted glass effect */
+            backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             padding: 40px 30px;
             border-radius: 30px;
             box-shadow: 0 15px 40px rgba(232, 62, 140, 0.25), 
-                        inset 0 0 25px rgba(255, 255, 255, 0.9); /* Inner glow */
+                        inset 0 0 25px rgba(255, 255, 255, 0.9);
             border: 2px solid rgba(255, 255, 255, 0.9);
             max-width: 500px;
             width: 90%;
@@ -97,27 +97,23 @@
             100% { transform: translateY(-8px); }
         }
 
-        /* Text Styling */
+        /* Typography */
         .intro-birthday {
             font-family: 'Pacifico', cursive;
             font-size: 3.8rem;
             color: #e83e8c;
-            margin: 0 0 10px 0;
+            margin: 0 0 5px 0;
             display: block;
             text-shadow: 2px 2px 0px white, 4px 4px 5px rgba(232, 62, 140, 0.2);
         }
         .intro-name {
             font-family: 'Dancing Script', cursive;
-            font-size: 2.6rem;
+            font-size: 4rem; 
             color: #fca311;
             margin: 0;
             display: block;
             font-weight: 700;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
-        }
-        .intro-icons {
-            display: flex; gap: 15px; justify-content: center;
-            margin-top: 20px; font-size: 1.8rem;
+            text-shadow: 2px 2px 2px rgba(255,255,255,0.9);
         }
         
         h2 {
@@ -129,75 +125,69 @@
             text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
         }
         p {
-            font-size: 1.15rem;
-            line-height: 1.8;
+            font-size: 1.25rem;
+            line-height: 1.7;
             margin-bottom: 20px;
-            color: #4a2e4d;
-            font-weight: 400;
+            color: #5a3e5d;
+            font-weight: 600;
         }
         .highlight {
             color: #e83e8c;
-            font-weight: 600;
-            background: rgba(255, 255, 255, 0.5);
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.6);
             padding: 2px 8px;
             border-radius: 10px;
         }
 
-        /* Video Player Setup (No controls & clicks disabled) */
+        /* Video */
         .video-container {
             width: 100%;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 8px 25px rgba(232, 62, 140, 0.3);
             border: 5px solid #fff;
-            margin-bottom: 10px;
-            pointer-events: none; /* Prevents any user interaction on the video */
+            margin-bottom: 5px;
+            pointer-events: none;
         }
         video {
             width: 100%;
             display: block;
         }
 
-        /* Tap Indicator */
+        /* Barely visible tap indicator */
         .tap-indicator {
             position: fixed;
-            bottom: 30px; left: 50%;
+            bottom: 15px; 
+            left: 50%;
             transform: translateX(-50%);
-            font-size: 1rem;
-            color: #e83e8c;
+            font-size: 0.8rem;
+            color: rgba(232, 62, 140, 0.6); 
+            font-family: 'Quicksand', sans-serif;
             font-weight: 600;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 10px 25px;
-            border-radius: 30px;
-            box-shadow: 0 5px 20px rgba(232, 62, 140, 0.4);
             z-index: 100;
-            animation: pulseTap 1.5s infinite;
             pointer-events: none;
-            border: 2px solid #ffe3ec;
+            opacity: 0.6;
+            animation: slowFade 2s infinite alternate;
         }
-        @keyframes pulseTap {
-            0%, 100% { transform: translate(-50%, 0) scale(1); }
-            50% { transform: translate(-50%, -8px) scale(1.05); }
+        @keyframes slowFade {
+            0% { opacity: 0.2; }
+            100% { opacity: 0.7; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Global Sparkles that cover the whole page -->
+    <!-- Global Sparkles -->
     <div class="global-sparkles"></div>
 
-    <!-- Floating Background Emojis -->
+    <!-- Floating Aesthetic Emojis -->
     <div class="floating-bg" id="bg-elements"></div>
 
-    <!-- PAGE 1: First Wishes -->
+    <!-- PAGE 1: First Wishes (Clean & Girly) -->
     <div id="page-1" class="page active">
         <div class="glass-box">
             <span class="intro-birthday">Happy Birthday</span>
-            <span class="intro-name">My Minion! 💛</span>
-            <span class="intro-name" style="font-size: 1.9rem; color: #5a3e5d; margin-top: 10px;">Dr. Thatikonda Srujana</span>
-            <div class="intro-icons">
-                <span>🌼</span> <span>🍫</span> <span>🛵</span> <span>🧋</span> <span>🌧️</span> <span>🚌</span>
-            </div>
+            <span class="intro-name">My Minion 🌻</span>
         </div>
     </div>
 
@@ -225,7 +215,7 @@
     <div id="page-4" class="page">
         <div class="glass-box">
             <h2 style="font-size: 3rem;">However... ✨</h2>
-            <p style="font-size: 1.4rem; font-weight: 600; margin-top: 20px;">Since I couldn't be there in person, I arranged a little something for you.</p>
+            <p style="font-size: 1.4rem; font-weight: 700; margin-top: 20px;">Since I couldn't be there in person, I arranged a little something for you.</p>
             <p style="font-size: 1.2rem;">I have a short, sweet birthday gift waiting on the next page... 🎀</p>
         </div>
     </div>
@@ -234,24 +224,29 @@
     <div id="page-5" class="page">
         <div class="glass-box">
             <h2 style="font-size: 2.2rem;">For You 🎂</h2>
-            <p style="font-size: 1rem; margin-bottom: 15px;">These wonderful kids are cutting a cake just for your birthday!</p>
+            <p style="font-size: 1.1rem; margin-bottom: 15px;">These wonderful kids are cutting a cake just for your birthday!</p>
             
             <div class="video-container">
-                <!-- Video plays automatically, no controls attached -->
                 <video id="bday-video" playsinline>
                     <source src="cake.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
                 </video>
             </div>
+            
+            <!-- Updated 2-line title with smaller BNYS degree -->
+            <p style="font-size: 1.8rem; font-weight: 700; color: #e83e8c; margin-top: 15px; margin-bottom: 0; font-family: 'Dancing Script', cursive; line-height: 1.1;">
+                Happy Birthday<br>
+                <span style="font-size: 1.4rem;">Dr. Srujana Thatikonda <span style="font-size: 0.8rem; font-family: 'Quicksand', sans-serif;">BNYS</span></span>
+            </p>
         </div>
     </div>
 
     <!-- PAGE 6: Sarcastic Note -->
     <div id="page-6" class="page">
         <div class="glass-box">
-            <h2 style="font-size: 2.5rem;">On another note... 🙄</h2>
-            <p style="font-size: 1.5rem; font-weight: 600; color: #e83e8c;">Start earning early rey!</p>
-            <p>I have a <span class="highlight">LOT</span> of things to buy from your money. So please hurry up and get rich quickly. 🛍️💸😎</p>
+            <h2 style="font-size: 2.5rem;">On another note... 😅</h2>
+            <p style="font-size: 1.4rem; font-weight: 700; color: #e83e8c;">Start earning early rey!</p>
+            <p>I have a <span class="highlight">LOT</span> of things to buy from your money. So please hurry up and get rich quickly. 🛍️💸</p>
+            <p>Be ready for your birthday treat soon when we meet! And remember, we have to take twin shoes soon! 👟👯‍♀️</p>
         </div>
     </div>
 
@@ -259,33 +254,41 @@
     <div id="page-7" class="page">
         <div class="glass-box">
             <h2 style="font-size: 3rem;">Happy Birthday Again! 🎉🥳</h2>
-            <p style="font-size: 1.3rem;">Wishing you the happiest year ahead filled with endless joy, smiles, and love! ❤️🌼</p>
-            <p style="font-size: 1.5rem; color: #e83e8c; font-weight: 600;">See you very soon, Minion! 🥰</p>
+            <p style="font-size: 1.3rem;">Wishing you the happiest year ahead filled with endless joy, smiles, and love! ❤️🌻</p>
+            <p style="font-size: 1.5rem; color: #e83e8c; font-weight: 700;">See you very soon, Minion! 🥰</p>
         </div>
     </div>
 
-    <!-- Global Tap Indicator -->
-    <div class="tap-indicator" id="tap-text">Tap anywhere to continue ✨</div>
+    <!-- PAGE 8: Telugu Ending Message -->
+    <div id="page-8" class="page">
+        <div class="glass-box" style="border-color: #ffb6c1; background: rgba(255,255,255,0.85);">
+            <p style="font-size: 1.8rem; font-weight: 700; color: #e83e8c; font-family: 'Dancing Script', cursive;">Inka chusindi chal le,</p>
+            <p style="font-size: 1.4rem; margin-top: 10px;">vachi call or msg cheyu, waiting ikkada 👀📱</p>
+        </div>
+    </div>
+
+    <!-- Tiny Tap Indicator -->
+    <div class="tap-indicator" id="tap-text">tap anywhere to continue</div>
 
     <script>
-        // Floating Emojis Generation
-        const emojis = ['🌼', '🍫', '🥤', '🛵', '🧋', '🌧️', '🏍️', '🚌', '✨', '🌸', '💖'];
+        // Restored all specific emojis, but with sunflowers only
+        const emojis = ['🌻', '🍫', '🥤', '🛵', '🧋', '🌧️', '🏍️', '🚌', '✨', '🌸', '💖'];
         const bgContainer = document.getElementById('bg-elements');
         
-        for(let i = 0; i < 30; i++) {
+        for(let i = 0; i < 22; i++) {
             let div = document.createElement('div');
             div.className = 'float-item';
             div.innerText = emojis[Math.floor(Math.random() * emojis.length)];
             div.style.left = Math.random() * 100 + 'vw';
-            div.style.animationDuration = (Math.random() * 12 + 10) + 's';
+            div.style.animationDuration = (Math.random() * 15 + 15) + 's'; 
             div.style.animationDelay = (Math.random() * 5) + 's';
-            div.style.fontSize = (Math.random() * 1.5 + 1.2) + 'rem';
+            div.style.fontSize = (Math.random() * 1.2 + 1) + 'rem';
             bgContainer.appendChild(div);
         }
 
         // Page Navigation Logic
         let currentPage = 1;
-        const totalPages = 7;
+        const totalPages = 8;
         const tapIndicator = document.getElementById('tap-text');
         const video = document.getElementById('bday-video');
 
@@ -294,27 +297,26 @@
             currentPage = pageNumber;
             document.getElementById(`page-${currentPage}`).classList.add('active');
 
-            // Page 5: Video Page Auto-play & Hide Tap Indicator
+            // Handle logic for the tap indicator & video
             if (currentPage === 5) {
+                // Video page
                 tapIndicator.style.display = 'none';
                 document.body.style.cursor = 'default';
                 video.play().catch(err => console.log("Autoplay blocked:", err));
-            } 
-            // Page 6: Sarcastic Note (Bring tap indicator back)
-            else if (currentPage === 6) {
+            } else if (currentPage === 8) {
+                // Final page
+                tapIndicator.style.display = 'none';
+                document.body.style.cursor = 'default';
+            } else {
+                // All other readable pages
                 tapIndicator.style.display = 'block';
                 document.body.style.cursor = 'pointer';
             }
-            // Page 7: Final Page setup (Hide tap indicator for good)
-            else if (currentPage === 7) {
-                tapIndicator.style.display = 'none';
-                document.body.style.cursor = 'default';
-            }
         }
 
-        // Click handler to advance pages manually (Pages 1->4 and 6->7)
+        // Click handler to advance pages manually (skips handling on video page and final page)
         document.body.addEventListener('click', function() {
-            if (currentPage < 5 || currentPage === 6) {
+            if (currentPage !== 5 && currentPage < totalPages) {
                 goToPage(currentPage + 1);
             }
         });

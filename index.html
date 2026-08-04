@@ -168,6 +168,45 @@
             border-radius: 10px;
         }
 
+        /* Buttons Container */
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        /* Contact Button Styles */
+        .call-btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #e83e8c;
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 30px;
+            box-shadow: 0 8px 20px rgba(232, 62, 140, 0.4);
+            transition: transform 0.2s;
+            animation: pulseTap 2s infinite alternate;
+        }
+        .wa-btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #25D366; /* WhatsApp Green */
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 30px;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+            transition: transform 0.2s;
+        }
+        .call-btn:active, .wa-btn:active {
+            transform: scale(0.95);
+        }
+
         /* Video */
         .video-container {
             width: 100%;
@@ -235,7 +274,7 @@
         </div>
     </div>
 
-    <!-- PAGE 2: Emotional Apology (Updated) -->
+    <!-- PAGE 2: Emotional Apology -->
     <div id="page-2" class="page">
         <div class="glass-box">
             <h2 style="font-size: 2.3rem;">Before anything else...</h2>
@@ -294,20 +333,35 @@
         </div>
     </div>
 
-    <!-- PAGE 7: Final Birthday Wishes -->
+    <!-- PAGE 7: Final Birthday Wishes (Updated Priority Note) -->
     <div id="page-7" class="page">
         <div class="glass-box">
             <h2 style="font-size: 3rem;">Happy Birthday Again! 🎉🥳</h2>
-            <p style="font-size: 1.3rem;">Wishing you the happiest year ahead filled with endless joy, smiles, and love! ❤️🌻</p>
-            <p style="font-size: 1.5rem; color: #e83e8c; font-weight: 700;">See you very soon, Minion! 🥰</p>
+            <p style="font-size: 1.25rem;">Wishing you the happiest year ahead filled with endless joy, smiles, and love! ❤️🌻</p>
+            
+            <p style="font-size: 1.15rem; font-weight: 700; color: #e83e8c; background: rgba(255, 255, 255, 0.6); padding: 15px; border-radius: 15px; line-height: 1.6;">
+                Remember me once whenever you feel like you have no one who takes you as a priority. I am here for you, and I will always take only you as my priority. 🥺❤️
+            </p>
+            
+            <p style="font-size: 1.5rem; color: #5a3e5d; font-weight: 700; margin-top: 20px;">See you very soon, Minion! 🥰</p>
         </div>
     </div>
 
-    <!-- PAGE 8: Telugu Ending Message -->
+    <!-- PAGE 8: Telugu Ending Message & Call/WhatsApp Buttons -->
     <div id="page-8" class="page">
         <div class="glass-box" style="border-color: #ffb6c1; background: rgba(255,255,255,0.85);">
             <p style="font-size: 1.8rem; font-weight: 700; color: #e83e8c; font-family: 'Dancing Script', cursive;">Inka chusindi chal le,</p>
-            <p style="font-size: 1.4rem; margin-top: 10px;">vachi call or msg cheyu, waiting ikkada 👀📱</p>
+            <p style="font-size: 1.4rem; margin-top: 10px; margin-bottom: 5px;">vachi call or msg cheyu, waiting ikkada 👀</p>
+            
+            <p style="font-size: 0.95rem; color: #5a3e5d; font-weight: 600; margin-bottom: 15px; opacity: 0.8;">
+                (If you don't want to call, you can text me on WhatsApp)
+            </p>
+            
+            <!-- Contact Buttons -->
+            <div class="btn-container">
+                <a href="tel:+919848725672" class="call-btn">Click here to call me directly 📞</a>
+                <a href="https://wa.me/919848725672" class="wa-btn">Text me on WhatsApp 💬</a>
+            </div>
         </div>
     </div>
 
@@ -421,7 +475,11 @@
         }
 
         // Main Tap to advance pages
-        document.body.addEventListener('click', function() {
+        document.body.addEventListener('click', function(e) {
+            // Check if the user clicked a link/button inside the page (like Call or WhatsApp)
+            // If they did, stop the page from turning so the button works correctly
+            if (e.target.closest('a')) return;
+
             if (musicStarted && currentPage !== 5 && currentPage < totalPages) {
                 goToPage(currentPage + 1);
             }

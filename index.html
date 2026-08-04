@@ -19,7 +19,7 @@
             user-select: none;
         }
 
-        /* Start Overlay - Solves Browser Autoplay Rules */
+        /* Start Overlay */
         #start-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -96,7 +96,7 @@
             transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
             transform: scale(0.92);
             z-index: 1;
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
         }
         .page.active {
@@ -106,21 +106,22 @@
             z-index: 2;
         }
 
-        /* Glass Cards */
+        /* Glass Cards (Scroll removed, made to fit) */
         .glass-box {
             background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            padding: 40px 30px;
+            padding: 35px 25px;
             border-radius: 30px;
             box-shadow: 0 15px 40px rgba(232, 62, 140, 0.25), 
                         inset 0 0 25px rgba(255, 255, 255, 0.9);
             border: 2px solid rgba(255, 255, 255, 0.9);
             max-width: 500px;
-            width: 90%;
+            width: 95%;
             position: relative;
             animation: subtleFloat 4s ease-in-out infinite alternate;
         }
+
         @keyframes subtleFloat {
             0% { transform: translateY(0px); }
             100% { transform: translateY(-8px); }
@@ -129,7 +130,7 @@
         /* Typography */
         .intro-birthday {
             font-family: 'Pacifico', cursive;
-            font-size: 3.8rem;
+            font-size: 3.5rem;
             color: #e83e8c;
             margin: 0 0 5px 0;
             display: block;
@@ -137,7 +138,7 @@
         }
         .intro-name {
             font-family: 'Dancing Script', cursive;
-            font-size: 4rem; 
+            font-size: 3.5rem; 
             color: #fca311;
             margin: 0;
             display: block;
@@ -147,16 +148,16 @@
         
         h2 {
             font-family: 'Dancing Script', cursive;
-            font-size: 2.8rem;
+            font-size: 2.6rem;
             color: #e83e8c;
-            margin-bottom: 15px; margin-top: 0;
+            margin-bottom: 12px; margin-top: 0;
             font-weight: 700;
             text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
         }
         p {
-            font-size: 1.25rem;
-            line-height: 1.7;
-            margin-bottom: 20px;
+            font-size: 1.15rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
             color: #5a3e5d;
             font-weight: 600;
         }
@@ -184,7 +185,7 @@
             background: #e83e8c;
             color: white;
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 700;
             border-radius: 30px;
             box-shadow: 0 8px 20px rgba(232, 62, 140, 0.4);
@@ -197,7 +198,7 @@
             background: #25D366; /* WhatsApp Green */
             color: white;
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 700;
             border-radius: 30px;
             box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
@@ -214,7 +215,7 @@
             overflow: hidden;
             box-shadow: 0 8px 25px rgba(232, 62, 140, 0.3);
             border: 5px solid #fff;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             pointer-events: none;
         }
         video {
@@ -229,21 +230,76 @@
             left: 50%;
             transform: translateX(-50%);
             font-size: 0.8rem;
-            color: rgba(232, 62, 140, 0.6); 
+            color: rgba(232, 62, 140, 0.8); 
             font-family: 'Quicksand', sans-serif;
-            font-weight: 600;
+            font-weight: 700;
             z-index: 100;
             pointer-events: none;
             opacity: 0;
             animation: slowFade 2s infinite alternate;
         }
         @keyframes slowFade {
-            0% { opacity: 0.2; }
-            100% { opacity: 0.7; }
+            0% { opacity: 0.3; }
+            100% { opacity: 0.9; }
         }
         @keyframes pulseTap {
             0% { transform: scale(1); }
             100% { transform: scale(1.05); }
+        }
+
+        /* MOBILE RESPONSIVE SCALING (Ensures everything fits on small screens without scrolling) */
+        @media (max-width: 500px), (max-height: 800px) {
+            .glass-box {
+                padding: 20px 15px;
+            }
+            .intro-birthday, .intro-name {
+                font-size: 2.6rem !important;
+            }
+            h2 {
+                font-size: 1.8rem !important;
+                margin-bottom: 8px !important;
+            }
+            p {
+                font-size: 0.95rem !important;
+                line-height: 1.4 !important;
+                margin-bottom: 10px !important;
+            }
+            .start-text {
+                font-size: 2.5rem !important;
+            }
+            .call-btn, .wa-btn {
+                padding: 10px 15px;
+                font-size: 1rem !important;
+            }
+            .btn-container {
+                gap: 10px;
+                margin-top: 5px;
+            }
+            /* Specific fix for the long Page 2 */
+            #page-2 p {
+                font-size: 0.9rem !important; 
+                margin-bottom: 8px !important;
+            }
+            /* Specific fix for the Video Page */
+            .video-container {
+                margin-bottom: 5px !important;
+            }
+            #page-5 p {
+                font-size: 1rem !important;
+                margin-bottom: 5px !important;
+                margin-top: 5px !important;
+            }
+            #page-5 .dancing-text {
+                font-size: 1.4rem !important;
+            }
+            #page-5 .degree-text {
+                font-size: 1.1rem !important;
+            }
+            /* Specific fix for the highlighted box on Page 7 */
+            #page-7 p[style*="background"] {
+                padding: 10px !important;
+                font-size: 0.9rem !important;
+            }
         }
     </style>
 </head>
@@ -256,7 +312,7 @@
 
     <!-- Start Overlay Screen -->
     <div id="start-overlay">
-        <div class="start-text">For You, Minion...</div>
+        <div class="start-text">For You...</div>
         <div class="start-tap">Tap anywhere to open 💌</div>
     </div>
 
@@ -266,18 +322,18 @@
     <!-- Floating Aesthetic Emojis -->
     <div class="floating-bg" id="bg-elements"></div>
 
-    <!-- PAGE 1: First Wishes -->
+    <!-- PAGE 1: First Wishes (Updated) -->
     <div id="page-1" class="page active">
         <div class="glass-box">
             <span class="intro-birthday">Happy Birthday</span>
-            <span class="intro-name">My Minion 🌻</span>
+            <span class="intro-name">My Friend Minion 🌻</span>
         </div>
     </div>
 
     <!-- PAGE 2: Emotional Apology -->
     <div id="page-2" class="page">
         <div class="glass-box">
-            <h2 style="font-size: 2.3rem;">Before anything else...</h2>
+            <h2>Before anything else...</h2>
             <p>Firstly, I am so sorry for hurting you in all the ways I have until now. I promise I never intended to hurt you. 😔</p>
             <p>I'm also sorry for forgetting the things you tell me. I may forget some of the things you say, but <span class="highlight">I can never forget you.</span></p>
             <p>I know I may not understand things properly sometimes, but please don't leave me like that. Try to explain it to me. I am trying my best to understand things, so please don't just leave me like that. 🥺</p>
@@ -307,8 +363,8 @@
     <!-- PAGE 5: Auto-playing Video -->
     <div id="page-5" class="page">
         <div class="glass-box">
-            <h2 style="font-size: 2.2rem;">For You 🎂</h2>
-            <p style="font-size: 1.1rem; margin-bottom: 15px;">These wonderful kids are cutting a cake just for your birthday!</p>
+            <h2>For You 🎂</h2>
+            <p>These wonderful kids are cutting a cake just for your birthday!</p>
             
             <div class="video-container">
                 <video id="bday-video" playsinline>
@@ -316,9 +372,9 @@
                 </video>
             </div>
             
-            <p style="font-size: 1.8rem; font-weight: 700; color: #e83e8c; margin-top: 15px; margin-bottom: 0; font-family: 'Dancing Script', cursive; line-height: 1.1;">
+            <p class="dancing-text" style="font-size: 1.6rem; font-weight: 700; color: #e83e8c; margin-top: 10px; margin-bottom: 0; font-family: 'Dancing Script', cursive; line-height: 1.1;">
                 Happy Birthday<br>
-                <span style="font-size: 1.4rem;">Dr. Srujana Thatikonda <span style="font-size: 0.8rem; font-family: 'Quicksand', sans-serif;">BNYS</span></span>
+                <span class="degree-text" style="font-size: 1.3rem;">Dr. Srujana Thatikonda <span style="font-size: 0.8rem; font-family: 'Quicksand', sans-serif;">BNYS</span></span>
             </p>
         </div>
     </div>
@@ -326,7 +382,7 @@
     <!-- PAGE 6: Sarcastic Note -->
     <div id="page-6" class="page">
         <div class="glass-box">
-            <h2 style="font-size: 2.5rem;">On another note... 😅</h2>
+            <h2>On another note... 😅</h2>
             <p style="font-size: 1.4rem; font-weight: 700; color: #e83e8c;">Start earning early rey!</p>
             <p>I have a <span class="highlight">LOT</span> of things to buy from your money. So please hurry up and get rich quickly. 🛍️💸</p>
             <p>Be ready for your birthday treat soon when we meet! And remember, we have to take twin shoes soon! 👟👯‍♀️</p>
@@ -336,18 +392,18 @@
     <!-- PAGE 7: Final Birthday Wishes -->
     <div id="page-7" class="page">
         <div class="glass-box">
-            <h2 style="font-size: 3rem;">Happy Birthday Again! 🎉🥳</h2>
-            <p style="font-size: 1.25rem;">Wishing you the happiest year ahead filled with endless joy, smiles, and love! ❤️🌻</p>
+            <h2>Happy Birthday Again! 🎉🥳</h2>
+            <p style="font-size: 1.2rem;">Wishing you the happiest year ahead filled with endless joy, smiles, and love! ❤️🌻</p>
             
-            <p style="font-size: 1.15rem; font-weight: 700; color: #e83e8c; background: rgba(255, 255, 255, 0.6); padding: 15px; border-radius: 15px; line-height: 1.6;">
+            <p style="font-size: 1.1rem; font-weight: 700; color: #e83e8c; background: rgba(255, 255, 255, 0.6); padding: 15px; border-radius: 15px; line-height: 1.6;">
                 Remember me once whenever you feel like you aren't anyone's priority. I am always here for you, and you will always be at the very top of my priority list, no matter what. 🥺❤️
             </p>
             
-            <p style="font-size: 1.5rem; color: #5a3e5d; font-weight: 700; margin-top: 20px;">See you very soon, Minion! 🥰</p>
+            <p style="font-size: 1.5rem; color: #5a3e5d; font-weight: 700; margin-top: 15px;">See you very soon, Minion! 🥰</p>
         </div>
     </div>
 
-    <!-- PAGE 8: Telugu Ending Message & Call/WhatsApp Buttons -->
+    <!-- PAGE 8: Telugu Ending Message & Call/WhatsApp Buttons (Updated) -->
     <div id="page-8" class="page">
         <div class="glass-box" style="border-color: #ffb6c1; background: rgba(255,255,255,0.85);">
             <p style="font-size: 1.8rem; font-weight: 700; color: #e83e8c; font-family: 'Dancing Script', cursive; margin-bottom: 5px;">Inka chusindi chal le,</p>
@@ -359,8 +415,8 @@
             
             <!-- Contact Buttons -->
             <div class="btn-container">
-                <a href="tel:+919848725672" class="call-btn">Click here to call me directly 📞</a>
-                <a href="https://wa.me/919848725672" class="wa-btn">Text me on WhatsApp 💬</a>
+                <a href="tel:+919848725672" class="call-btn">call me 📞</a>
+                <a href="https://wa.me/919848725672" class="wa-btn">text me 💬</a>
             </div>
         </div>
     </div>
@@ -407,14 +463,13 @@
                 let elapsed = time - startTime;
                 let progress = Math.min(elapsed / duration, 1);
                 
-                // Set new volume safely between 0 and 1
                 let newVolume = startVolume + change * progress;
                 audio.volume = Math.max(0, Math.min(1, newVolume));
 
                 if (progress < 1) {
                     requestAnimationFrame(step);
                 } else if (targetVolume === 0) {
-                    audio.pause(); // Pause completely when faded to 0
+                    audio.pause(); 
                 }
             }
             requestAnimationFrame(step);
@@ -422,17 +477,15 @@
 
         // Handle the Start Overlay Tap
         document.getElementById('start-overlay').addEventListener('click', function(e) {
-            e.stopPropagation(); // Prevents this tap from advancing to Page 2
+            e.stopPropagation(); 
             
-            // Start the music
             bgMusic.play().catch(err => console.log("Audio play blocked:", err));
             musicStarted = true;
             
-            // Fade out the overlay
             this.style.opacity = '0';
             setTimeout(() => {
                 this.style.display = 'none';
-                tapIndicator.style.opacity = '0.6'; // Show tap indicator for reading
+                tapIndicator.style.opacity = '1'; 
             }, 1200);
         });
 
@@ -442,33 +495,26 @@
             document.getElementById(`page-${currentPage}`).classList.add('active');
 
             if (currentPage === 5) {
-                // Video page logic
                 tapIndicator.style.display = 'none';
                 document.body.style.cursor = 'default';
                 
-                // Fade out Background Music over 1.5 seconds
                 fadeAudio(bgMusic, 0, 1500); 
                 
-                // Ensure video starts at 0 volume and fades in
                 video.volume = 0; 
                 video.play().catch(err => console.log("Video Autoplay blocked:", err));
-                fadeAudio(video, 1, 1500); // Fade video music in over 1.5 seconds
+                fadeAudio(video, 1, 1500); 
 
             } else if (currentPage === 6) {
-                // Recover from video page logic
                 tapIndicator.style.display = 'block';
                 document.body.style.cursor = 'pointer';
                 
-                // Start BG music again and fade it back in
                 bgMusic.play();
                 fadeAudio(bgMusic, NORMAL_BG_VOLUME, 1500);
                 
             } else if (currentPage === 8) {
-                // Final page logic
                 tapIndicator.style.display = 'none';
                 document.body.style.cursor = 'default';
             } else {
-                // All other readable pages
                 tapIndicator.style.display = 'block';
                 document.body.style.cursor = 'pointer';
             }
@@ -476,8 +522,6 @@
 
         // Main Tap to advance pages
         document.body.addEventListener('click', function(e) {
-            // Check if the user clicked a link/button inside the page (like Call or WhatsApp)
-            // If they did, stop the page from turning so the button works correctly
             if (e.target.closest('a')) return;
 
             if (musicStarted && currentPage !== 5 && currentPage < totalPages) {
@@ -487,12 +531,28 @@
 
         // Automatically transition to Page 6 when the video ends
         video.addEventListener('ended', function() {
-            // Fade out the video just in case there is lingering sound at the very end
             fadeAudio(video, 0, 500); 
             setTimeout(() => {
                 goToPage(6);
-            }, 500); // wait half a second after video ends to transition
+            }, 500); 
         });
+
+        // 🌻 A special function for a special friend 🌻
+        const bestFriend = "Minion";
+        const birthday = "August 13th";
+        const ourBond = Infinity;
+
+        function celebrateMinion(friendName) {
+            if (friendName === "Minion") {
+                console.log("🎉 HAPPY BIRTHDAY, MINION! 🎉");
+                console.log("Through every bug, glitch, and fight, our friendship always compiles perfectly.");
+                console.log("Here is to twin shoes, priority lists, and a bond that equals " + ourBond + " ❤️");
+            } else {
+                console.log("Just a regular day.");
+            }
+        }
+
+        celebrateMinion(bestFriend);
     </script>
 </body>
 </html>

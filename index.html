@@ -178,6 +178,11 @@
 </head>
 <body>
 
+    <!-- Background Music Player (Hidden) -->
+    <audio id="bg-music" loop>
+        <source src="bg-music.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- Global Sparkles -->
     <div class="global-sparkles"></div>
 
@@ -192,7 +197,7 @@
         </div>
     </div>
 
-    <!-- PAGE 2: Emotional Apology (Updated) -->
+    <!-- PAGE 2: Emotional Apology -->
     <div id="page-2" class="page">
         <div class="glass-box">
             <h2 style="font-size: 2.3rem;">Before anything else...</h2>
@@ -288,6 +293,11 @@
             bgContainer.appendChild(div);
         }
 
+        // Setup Background Music
+        const bgMusic = document.getElementById('bg-music');
+        bgMusic.volume = 0.15; // Mild volume level
+        let musicStarted = false;
+
         // Page Navigation Logic
         let currentPage = 1;
         const totalPages = 8;
@@ -303,7 +313,13 @@
                 // Video page
                 tapIndicator.style.display = 'none';
                 document.body.style.cursor = 'default';
+                bgMusic.volume = 0.03; // Lower background music so the video can be heard
                 video.play().catch(err => console.log("Autoplay blocked:", err));
+            } else if (currentPage === 6) {
+                // Restore music volume after video ends
+                bgMusic.volume = 0.15;
+                tapIndicator.style.display = 'block';
+                document.body.style.cursor = 'pointer';
             } else if (currentPage === 8) {
                 // Final page
                 tapIndicator.style.display = 'none';
@@ -317,6 +333,12 @@
 
         // Click handler to advance pages manually
         document.body.addEventListener('click', function() {
+            // Start music on first tap
+            if (!musicStarted) {
+                bgMusic.play().catch(err => console.log("Audio play blocked by browser:", err));
+                musicStarted = true;
+            }
+
             if (currentPage !== 5 && currentPage < totalPages) {
                 goToPage(currentPage + 1);
             }

@@ -106,18 +106,23 @@
             z-index: 2;
         }
 
-        /* Glass Cards (Scroll removed, made to fit) */
+        /* Glass Cards - Forced to fit screen without scrolling */
         .glass-box {
             background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            padding: 35px 25px;
+            padding: 30px 25px;
             border-radius: 30px;
             box-shadow: 0 15px 40px rgba(232, 62, 140, 0.25), 
                         inset 0 0 25px rgba(255, 255, 255, 0.9);
             border: 2px solid rgba(255, 255, 255, 0.9);
             max-width: 500px;
             width: 95%;
+            max-height: 92vh; /* Locks it to the screen */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             position: relative;
             animation: subtleFloat 4s ease-in-out infinite alternate;
         }
@@ -144,6 +149,7 @@
             display: block;
             font-weight: 700;
             text-shadow: 2px 2px 2px rgba(255,255,255,0.9);
+            line-height: 1.1;
         }
         
         h2 {
@@ -153,13 +159,15 @@
             margin-bottom: 12px; margin-top: 0;
             font-weight: 700;
             text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+            width: 100%;
         }
         p {
-            font-size: 1.15rem;
-            line-height: 1.6;
+            font-size: 1.25rem;
+            line-height: 1.5;
             margin-bottom: 15px;
             color: #5a3e5d;
             font-weight: 600;
+            width: 100%;
         }
         .highlight {
             color: #e83e8c;
@@ -174,7 +182,7 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
-            margin-top: 10px;
+            margin-top: 5px;
             width: 100%;
         }
 
@@ -195,7 +203,7 @@
         .wa-btn {
             display: inline-block;
             padding: 12px 20px;
-            background: #25D366; /* WhatsApp Green */
+            background: #25D366; 
             color: white;
             text-decoration: none;
             font-size: 1.2rem;
@@ -208,25 +216,33 @@
             transform: scale(0.95);
         }
 
-        /* Video */
+        /* Video Container - The Magic Fix */
         .video-container {
             width: 100%;
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 8px 25px rgba(232, 62, 140, 0.3);
-            border: 5px solid #fff;
+            border: 4px solid #fff;
             margin-bottom: 10px;
             pointer-events: none;
+            /* This strictly limits the video height so it NEVER pushes text out */
+            max-height: 35vh; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
         }
         video {
             width: 100%;
-            display: block;
+            height: 100%;
+            max-height: 35vh;
+            object-fit: cover; /* Ensures video scales beautifully without gaps */
         }
 
         /* Barely visible tap indicator */
         .tap-indicator {
             position: fixed;
-            bottom: 15px; 
+            bottom: 10px; 
             left: 50%;
             transform: translateX(-50%);
             font-size: 0.8rem;
@@ -247,58 +263,37 @@
             100% { transform: scale(1.05); }
         }
 
-        /* MOBILE RESPONSIVE SCALING (Ensures everything fits on small screens without scrolling) */
+        /* Smart Scaling for Mobile (Keeps fonts big but tightens spaces to fit) */
         @media (max-width: 500px), (max-height: 800px) {
             .glass-box {
-                padding: 20px 15px;
-            }
-            .intro-birthday, .intro-name {
-                font-size: 2.6rem !important;
+                padding: 20px 20px;
             }
             h2 {
-                font-size: 1.8rem !important;
+                font-size: 2.2rem !important; /* Kept large and punchy */
                 margin-bottom: 8px !important;
             }
             p {
-                font-size: 0.95rem !important;
-                line-height: 1.4 !important;
+                font-size: 1.15rem !important; /* Kept readable and emotional */
                 margin-bottom: 10px !important;
             }
-            .start-text {
-                font-size: 2.5rem !important;
-            }
-            .call-btn, .wa-btn {
-                padding: 10px 15px;
-                font-size: 1rem !important;
-            }
-            .btn-container {
-                gap: 10px;
-                margin-top: 5px;
-            }
-            /* Specific fix for the long Page 2 */
+            /* Specific fix to guarantee the long apology fits perfectly */
             #page-2 p {
-                font-size: 0.9rem !important; 
+                font-size: 1.05rem !important; 
                 margin-bottom: 8px !important;
+                line-height: 1.4 !important;
             }
-            /* Specific fix for the Video Page */
+            /* Video Page Constraint */
             .video-container {
+                max-height: 28vh !important; /* Shrinks video heavily on small screens */
+            }
+            video {
+                max-height: 28vh !important;
+            }
+            #page-5 h2 {
                 margin-bottom: 5px !important;
             }
             #page-5 p {
-                font-size: 1rem !important;
-                margin-bottom: 5px !important;
-                margin-top: 5px !important;
-            }
-            #page-5 .dancing-text {
-                font-size: 1.4rem !important;
-            }
-            #page-5 .degree-text {
-                font-size: 1.1rem !important;
-            }
-            /* Specific fix for the highlighted box on Page 7 */
-            #page-7 p[style*="background"] {
-                padding: 10px !important;
-                font-size: 0.9rem !important;
+                margin-bottom: 8px !important;
             }
         }
     </style>
@@ -313,7 +308,7 @@
     <!-- Start Overlay Screen -->
     <div id="start-overlay">
         <div class="start-text">For You...</div>
-        <div class="start-tap">Tap anywhere to open 💌</div>
+        <div class="start-tap">Tap anywhere to open</div>
     </div>
 
     <!-- Global Sparkles -->
@@ -322,7 +317,7 @@
     <!-- Floating Aesthetic Emojis -->
     <div class="floating-bg" id="bg-elements"></div>
 
-    <!-- PAGE 1: First Wishes (Updated) -->
+    <!-- PAGE 1: First Wishes -->
     <div id="page-1" class="page active">
         <div class="glass-box">
             <span class="intro-birthday">Happy Birthday</span>
@@ -335,9 +330,9 @@
         <div class="glass-box">
             <h2>Before anything else...</h2>
             <p>Firstly, I am so sorry for hurting you in all the ways I have until now. I promise I never intended to hurt you. 😔</p>
-            <p>I'm also sorry for forgetting the things you tell me. I may forget some of the things you say, but <span class="highlight">I can never forget you.</span></p>
+            <p>I'm also sorry for forgetting the things you tell me. I may forget some of the things you say, but<span class="highlight">I can never forget you.</span></p>
             <p>I know I may not understand things properly sometimes, but please don't leave me like that. Try to explain it to me. I am trying my best to understand things, so please don't just leave me like that. 🥺</p>
-            <p>You are a gift of life that God has given me in the form of a <span class="highlight">friend</span>, and I don't want to lose you in any way. Nothing is going to ruin our friendship. No matter how many fights we get into, we should always find our way back to our friendship every single time. 🤞❤️</p>
+            <p>You are a gift of life that God has given me in the form of a<span class="highlight">friend</span>, and I don't want to lose you in any way. Nothing is going to ruin our friendship. No matter how many fights we get into, we should always find our way back to our friendship every single time. 🤞❤️</p>
         </div>
     </div>
 
@@ -345,9 +340,9 @@
     <div id="page-3" class="page">
         <div class="glass-box">
             <h2>I'm also sorry... 🥺</h2>
-            <p>You made my birthday so incredibly special on <span class="highlight">March 31st</span>, and it genuinely breaks my heart that I couldn't do the same for you today.</p>
+            <p>You made my birthday so incredibly special on<span class="highlight">March 31st</span>,and it genuinely breaks my heart that I couldn't do the same for you today.</p>
             <p>I feel really sad that I couldn't be there to see you on your special day.</p>
-            <p>I really wish I was there to celebrate <span class="highlight">August 13th</span> with you, but I promise we will meet up very soon to make up for it! ❤️</p>
+            <p>I really wish I was there to celebrate<span class="highlight">August 13th</span>with you, but I promise we will meet up very soon to make up for it! ❤️</p>
         </div>
     </div>
 
@@ -360,7 +355,7 @@
         </div>
     </div>
 
-    <!-- PAGE 5: Auto-playing Video -->
+    <!-- PAGE 5: Auto-playing Video (Fixed Boundary Issue) -->
     <div id="page-5" class="page">
         <div class="glass-box">
             <h2>For You 🎂</h2>
@@ -372,9 +367,9 @@
                 </video>
             </div>
             
-            <p class="dancing-text" style="font-size: 1.6rem; font-weight: 700; color: #e83e8c; margin-top: 10px; margin-bottom: 0; font-family: 'Dancing Script', cursive; line-height: 1.1;">
+            <p style="font-size: 1.6rem; font-weight: 700; color: #e83e8c; margin-top: 5px; margin-bottom: 0; font-family: 'Dancing Script', cursive; line-height: 1.1;">
                 Happy Birthday<br>
-                <span class="degree-text" style="font-size: 1.3rem;">Dr. Srujana Thatikonda <span style="font-size: 0.8rem; font-family: 'Quicksand', sans-serif;">BNYS</span></span>
+                <span style="font-size: 1.3rem; font-family: 'Quicksand', sans-serif;">Dr. Srujana Thatikonda <span style="font-size: 0.8rem;">BNYS</span></span>
             </p>
         </div>
     </div>
@@ -399,11 +394,11 @@
                 Remember me once whenever you feel like you aren't anyone's priority. I am always here for you, and you will always be at the very top of my priority list, no matter what. 🥺❤️
             </p>
             
-            <p style="font-size: 1.5rem; color: #5a3e5d; font-weight: 700; margin-top: 15px;">See you very soon, Minion! 🥰</p>
+            <p style="font-size: 1.4rem; color: #5a3e5d; font-weight: 700; margin-top: 10px; margin-bottom: 0;">See you very soon, Minion! 🥰</p>
         </div>
     </div>
 
-    <!-- PAGE 8: Telugu Ending Message & Call/WhatsApp Buttons (Updated) -->
+    <!-- PAGE 8: Telugu Ending Message & Call/WhatsApp Buttons -->
     <div id="page-8" class="page">
         <div class="glass-box" style="border-color: #ffb6c1; background: rgba(255,255,255,0.85);">
             <p style="font-size: 1.8rem; font-weight: 700; color: #e83e8c; font-family: 'Dancing Script', cursive; margin-bottom: 5px;">Inka chusindi chal le,</p>

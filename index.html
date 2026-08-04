@@ -46,7 +46,7 @@
         }
         .float-item {
             position: absolute;
-            top: 0; /* Set baseline so they don't clump */
+            top: 0; 
             animation: floatUp 15s linear infinite;
             will-change: transform;
         }
@@ -192,12 +192,13 @@
         </div>
     </div>
 
-    <!-- PAGE 2: Emotional Apology -->
+    <!-- PAGE 2: Emotional Apology (Updated) -->
     <div id="page-2" class="page">
         <div class="glass-box">
             <h2 style="font-size: 2.3rem;">Before anything else...</h2>
             <p>Firstly, I am so sorry for hurting you in all the ways I have until now. I promise I never intended to hurt you. 😔</p>
             <p>I'm also sorry for forgetting the things you tell me. I may forget some of the things you say, but <span class="highlight">I can never forget you.</span></p>
+            <p>I know I may not understand things properly sometimes, but please don't leave me like that. Try to explain it to me. I am trying my best to understand things, so please don't just leave me like that. 🥺</p>
             <p>You are a gift of life that God has given me in the form of a friend, and I don't want to lose you in any way. No matter how many fights we get into, we should always find our way back to our friendship every single time. 🤞❤️</p>
         </div>
     </div>
@@ -280,11 +281,7 @@
             div.innerText = emojis[Math.floor(Math.random() * emojis.length)];
             div.style.left = Math.random() * 100 + 'vw';
             
-            // Random duration between 15s and 30s
             div.style.animationDuration = (Math.random() * 15 + 15) + 's'; 
-            
-            // NEGATIVE DELAY is the magic trick here!
-            // This pushes the animation forward instantly so they are already flowing when the page opens.
             div.style.animationDelay = '-' + (Math.random() * 30) + 's'; 
             
             div.style.fontSize = (Math.random() * 1.2 + 1) + 'rem';

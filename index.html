@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Minion! 🌻</title>
     <style>
-        /* Imported a softer, more feminine font (Quicksand) for the body */
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;600;700&family=Pacifico&display=swap');
 
         body {
@@ -37,7 +36,7 @@
             100% { background-position: 40px 40px, 55px 55px; }
         }
 
-        /* Floating Background Emojis (Refined for aesthetics) */
+        /* Floating Background Emojis */
         .floating-bg {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -47,11 +46,13 @@
         }
         .float-item {
             position: absolute;
+            top: 0; /* Set baseline so they don't clump */
             animation: floatUp 15s linear infinite;
+            will-change: transform;
         }
         @keyframes floatUp {
             0% { transform: translateY(110vh) rotate(0deg) scale(0.8); }
-            100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); }
+            100% { transform: translateY(-20vh) rotate(360deg) scale(1.2); }
         }
 
         /* Page Container */
@@ -183,7 +184,7 @@
     <!-- Floating Aesthetic Emojis -->
     <div class="floating-bg" id="bg-elements"></div>
 
-    <!-- PAGE 1: First Wishes (Clean & Girly) -->
+    <!-- PAGE 1: First Wishes -->
     <div id="page-1" class="page active">
         <div class="glass-box">
             <span class="intro-birthday">Happy Birthday</span>
@@ -232,7 +233,6 @@
                 </video>
             </div>
             
-            <!-- Updated 2-line title with smaller BNYS degree -->
             <p style="font-size: 1.8rem; font-weight: 700; color: #e83e8c; margin-top: 15px; margin-bottom: 0; font-family: 'Dancing Script', cursive; line-height: 1.1;">
                 Happy Birthday<br>
                 <span style="font-size: 1.4rem;">Dr. Srujana Thatikonda <span style="font-size: 0.8rem; font-family: 'Quicksand', sans-serif;">BNYS</span></span>
@@ -271,7 +271,6 @@
     <div class="tap-indicator" id="tap-text">tap anywhere to continue</div>
 
     <script>
-        // Restored all specific emojis, but with sunflowers only
         const emojis = ['🌻', '🍫', '🥤', '🛵', '🧋', '🌧️', '🏍️', '🚌', '✨', '🌸', '💖'];
         const bgContainer = document.getElementById('bg-elements');
         
@@ -280,8 +279,14 @@
             div.className = 'float-item';
             div.innerText = emojis[Math.floor(Math.random() * emojis.length)];
             div.style.left = Math.random() * 100 + 'vw';
+            
+            // Random duration between 15s and 30s
             div.style.animationDuration = (Math.random() * 15 + 15) + 's'; 
-            div.style.animationDelay = (Math.random() * 5) + 's';
+            
+            // NEGATIVE DELAY is the magic trick here!
+            // This pushes the animation forward instantly so they are already flowing when the page opens.
+            div.style.animationDelay = '-' + (Math.random() * 30) + 's'; 
+            
             div.style.fontSize = (Math.random() * 1.2 + 1) + 'rem';
             bgContainer.appendChild(div);
         }
@@ -297,7 +302,6 @@
             currentPage = pageNumber;
             document.getElementById(`page-${currentPage}`).classList.add('active');
 
-            // Handle logic for the tap indicator & video
             if (currentPage === 5) {
                 // Video page
                 tapIndicator.style.display = 'none';
@@ -314,7 +318,7 @@
             }
         }
 
-        // Click handler to advance pages manually (skips handling on video page and final page)
+        // Click handler to advance pages manually
         document.body.addEventListener('click', function() {
             if (currentPage !== 5 && currentPage < totalPages) {
                 goToPage(currentPage + 1);

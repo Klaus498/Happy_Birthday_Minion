@@ -19,6 +19,34 @@
             user-select: none;
         }
 
+        /* Start Overlay - Solves Browser Autoplay Rules */
+        #start-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1.2s ease-in-out;
+        }
+        .start-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #e83e8c;
+            margin-bottom: 20px;
+        }
+        .start-tap {
+            font-size: 1.2rem;
+            color: #5a3e5d;
+            font-weight: 600;
+            background: rgba(255, 182, 193, 0.3);
+            padding: 10px 25px;
+            border-radius: 30px;
+            animation: pulseTap 1.5s infinite alternate;
+        }
+
         /* Global Sparkles */
         .global-sparkles {
             position: fixed;
@@ -167,12 +195,16 @@
             font-weight: 600;
             z-index: 100;
             pointer-events: none;
-            opacity: 0.6;
+            opacity: 0;
             animation: slowFade 2s infinite alternate;
         }
         @keyframes slowFade {
             0% { opacity: 0.2; }
             100% { opacity: 0.7; }
+        }
+        @keyframes pulseTap {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
         }
     </style>
 </head>
@@ -182,6 +214,12 @@
     <audio id="bg-music" loop>
         <source src="bg-music.mp3" type="audio/mpeg">
     </audio>
+
+    <!-- Start Overlay Screen -->
+    <div id="start-overlay">
+        <div class="start-text">For You, Minion...</div>
+        <div class="start-tap">Tap anywhere to open 💌</div>
+    </div>
 
     <!-- Global Sparkles -->
     <div class="global-sparkles"></div>
@@ -197,7 +235,7 @@
         </div>
     </div>
 
-    <!-- PAGE 2: Emotional Apology -->
+    <!-- PAGE 2: Emotional Apology (Updated) -->
     <div id="page-2" class="page">
         <div class="glass-box">
             <h2 style="font-size: 2.3rem;">Before anything else...</h2>
@@ -293,16 +331,56 @@
             bgContainer.appendChild(div);
         }
 
-        // Setup Background Music
+        // Setup Media Elements
         const bgMusic = document.getElementById('bg-music');
-        bgMusic.volume = 0.15; // Mild volume level
+        const video = document.getElementById('bday-video');
+        const tapIndicator = document.getElementById('tap-text');
+        
+        const NORMAL_BG_VOLUME = 0.15;
+        bgMusic.volume = NORMAL_BG_VOLUME; 
+        
         let musicStarted = false;
-
-        // Page Navigation Logic
         let currentPage = 1;
         const totalPages = 8;
-        const tapIndicator = document.getElementById('tap-text');
-        const video = document.getElementById('bday-video');
+
+        // Fading Utility Function
+        function fadeAudio(audio, targetVolume, duration) {
+            let startVolume = audio.volume;
+            let change = targetVolume - startVolume;
+            let startTime = performance.now();
+
+            function step(time) {
+                let elapsed = time - startTime;
+                let progress = Math.min(elapsed / duration, 1);
+                
+                // Set new volume safely between 0 and 1
+                let newVolume = startVolume + change * progress;
+                audio.volume = Math.max(0, Math.min(1, newVolume));
+
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else if (targetVolume === 0) {
+                    audio.pause(); // Pause completely when faded to 0
+                }
+            }
+            requestAnimationFrame(step);
+        }
+
+        // Handle the Start Overlay Tap
+        document.getElementById('start-overlay').addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevents this tap from advancing to Page 2
+            
+            // Start the music
+            bgMusic.play().catch(err => console.log("Audio play blocked:", err));
+            musicStarted = true;
+            
+            // Fade out the overlay
+            this.style.opacity = '0';
+            setTimeout(() => {
+                this.style.display = 'none';
+                tapIndicator.style.opacity = '0.6'; // Show tap indicator for reading
+            }, 1200);
+        });
 
         function goToPage(pageNumber) {
             document.getElementById(`page-${currentPage}`).classList.remove('active');
@@ -310,18 +388,29 @@
             document.getElementById(`page-${currentPage}`).classList.add('active');
 
             if (currentPage === 5) {
-                // Video page
+                // Video page logic
                 tapIndicator.style.display = 'none';
                 document.body.style.cursor = 'default';
-                bgMusic.volume = 0.03; // Lower background music so the video can be heard
-                video.play().catch(err => console.log("Autoplay blocked:", err));
+                
+                // Fade out Background Music over 1.5 seconds
+                fadeAudio(bgMusic, 0, 1500); 
+                
+                // Ensure video starts at 0 volume and fades in
+                video.volume = 0; 
+                video.play().catch(err => console.log("Video Autoplay blocked:", err));
+                fadeAudio(video, 1, 1500); // Fade video music in over 1.5 seconds
+
             } else if (currentPage === 6) {
-                // Restore music volume after video ends
-                bgMusic.volume = 0.15;
+                // Recover from video page logic
                 tapIndicator.style.display = 'block';
                 document.body.style.cursor = 'pointer';
+                
+                // Start BG music again and fade it back in
+                bgMusic.play();
+                fadeAudio(bgMusic, NORMAL_BG_VOLUME, 1500);
+                
             } else if (currentPage === 8) {
-                // Final page
+                // Final page logic
                 tapIndicator.style.display = 'none';
                 document.body.style.cursor = 'default';
             } else {
@@ -331,22 +420,20 @@
             }
         }
 
-        // Click handler to advance pages manually
+        // Main Tap to advance pages
         document.body.addEventListener('click', function() {
-            // Start music on first tap
-            if (!musicStarted) {
-                bgMusic.play().catch(err => console.log("Audio play blocked by browser:", err));
-                musicStarted = true;
-            }
-
-            if (currentPage !== 5 && currentPage < totalPages) {
+            if (musicStarted && currentPage !== 5 && currentPage < totalPages) {
                 goToPage(currentPage + 1);
             }
         });
 
         // Automatically transition to Page 6 when the video ends
         video.addEventListener('ended', function() {
-            goToPage(6);
+            // Fade out the video just in case there is lingering sound at the very end
+            fadeAudio(video, 0, 500); 
+            setTimeout(() => {
+                goToPage(6);
+            }, 500); // wait half a second after video ends to transition
         });
     </script>
 </body>

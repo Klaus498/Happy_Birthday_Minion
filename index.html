@@ -216,7 +216,7 @@
             transform: scale(0.95);
         }
 
-        /* Video Container - Fixed for pure portrait without cropping */
+        /* Video Container - INCREASED SIZE */
         .video-container {
             width: 100%;
             display: flex;
@@ -228,8 +228,8 @@
         video {
             max-width: 100%;
             height: auto;
-            max-height: 48vh; /* Naturally caps portrait height so text fits */
-            object-fit: contain; /* PERFECT FIT, ZERO CROPPING */
+            max-height: 58vh; /* Increased from 48vh to make video much larger */
+            object-fit: contain; 
             border-radius: 15px;
             box-shadow: 0 8px 25px rgba(232, 62, 140, 0.3);
             border: 4px solid #fff;
@@ -278,9 +278,9 @@
                 margin-bottom: 8px !important;
                 line-height: 1.4 !important;
             }
-            /* Cap video on very small screens to maintain layout */
+            /* Increased mobile video cap */
             video {
-                max-height: 45vh !important;
+                max-height: 55vh !important; /* Increased from 45vh so it takes up more space on phones */
             }
             #page-5 h2 {
                 margin-bottom: 5px !important;
@@ -301,7 +301,7 @@
     <!-- Start Overlay Screen -->
     <div id="start-overlay">
         <div class="start-text">For You...</div>
-        <div class="start-tap">Tap anywhere to open</div>
+        <div class="start-tap">Tap anywhere to open 💌</div>
     </div>
 
     <!-- Global Sparkles -->
@@ -350,19 +350,20 @@
 
     <!-- PAGE 5: Auto-playing Video -->
     <div id="page-5" class="page">
-        <div class="glass-box">
-            <h2>For You 🎂</h2>
-            <p>These wonderful kids are cutting a cake just for your birthday!</p>
+        <!-- Reduced padding specifically on this card so the video has maximum room -->
+        <div class="glass-box" style="padding: 15px 20px;">
+            <h2 style="font-size: 2.2rem; margin-bottom: 5px;">For You 🎂</h2>
+            <p style="font-size: 1rem; margin-bottom: 5px;">These wonderful kids are cutting a cake just for your birthday!</p>
             
-            <div class="video-container">
+            <div class="video-container" style="margin-bottom: 5px;">
                 <video id="bday-video" playsinline>
                     <source src="cake.mp4" type="video/mp4">
                 </video>
             </div>
             
-            <p style="font-size: 1.6rem; font-weight: 700; color: #e83e8c; margin-top: 5px; margin-bottom: 0; font-family: 'Dancing Script', cursive; line-height: 1.1;">
+            <p style="font-size: 1.5rem; font-weight: 700; color: #e83e8c; margin-top: 5px; margin-bottom: 0; font-family: 'Dancing Script', cursive; line-height: 1.1;">
                 Happy Birthday<br>
-                <span style="font-size: 1.3rem; font-family: 'Quicksand', sans-serif;">Dr. Srujana Thatikonda <span style="font-size: 0.8rem;">BNYS</span></span>
+                <span style="font-size: 1.2rem; font-family: 'Quicksand', sans-serif;">Dr. Srujana Thatikonda <span style="font-size: 0.8rem;">BNYS</span></span>
             </p>
         </div>
     </div>
@@ -391,13 +392,10 @@
         </div>
     </div>
 
-    <!-- PAGE 8: Telugu Ending Message & Call/WhatsApp Buttons (Fixed Readability) -->
+    <!-- PAGE 8: Telugu Ending Message & Call/WhatsApp Buttons -->
     <div id="page-8" class="page">
         <div class="glass-box" style="border-color: #ffb6c1; background: rgba(255,255,255,0.85);">
-            
-            <!-- Made this into a big prominent header so it is super readable -->
             <h2 style="font-size: 2.6rem; margin-bottom: 5px;">Inka chusindi chal le,</h2>
-            
             <p style="font-size: 1.4rem; margin-top: 5px; margin-bottom: 5px;">vachi call or msg cheyu, waiting ikkada 👀</p>
             
             <p style="font-size: 0.95rem; color: #5a3e5d; font-weight: 600; margin-bottom: 15px; opacity: 0.8;">

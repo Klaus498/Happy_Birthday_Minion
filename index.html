@@ -216,7 +216,7 @@
             transform: scale(0.95);
         }
 
-        /* Video Container - INCREASED SIZE */
+        /* Video Container */
         .video-container {
             width: 100%;
             display: flex;
@@ -228,7 +228,7 @@
         video {
             max-width: 100%;
             height: auto;
-            max-height: 58vh; /* Increased from 48vh to make video much larger */
+            max-height: 58vh; 
             object-fit: contain; 
             border-radius: 15px;
             box-shadow: 0 8px 25px rgba(232, 62, 140, 0.3);
@@ -278,9 +278,8 @@
                 margin-bottom: 8px !important;
                 line-height: 1.4 !important;
             }
-            /* Increased mobile video cap */
             video {
-                max-height: 55vh !important; /* Increased from 45vh so it takes up more space on phones */
+                max-height: 55vh !important; 
             }
             #page-5 h2 {
                 margin-bottom: 5px !important;
@@ -350,7 +349,6 @@
 
     <!-- PAGE 5: Auto-playing Video -->
     <div id="page-5" class="page">
-        <!-- Reduced padding specifically on this card so the video has maximum room -->
         <div class="glass-box" style="padding: 15px 20px;">
             <h2 style="font-size: 2.2rem; margin-bottom: 5px;">For You 🎂</h2>
             <p style="font-size: 1rem; margin-bottom: 5px;">These wonderful kids are cutting a cake just for your birthday!</p>
@@ -464,10 +462,20 @@
             requestAnimationFrame(step);
         }
 
-        // Handle the Start Overlay Tap
+        // Handle the Start Overlay Tap & FULLSCREEN
         document.getElementById('start-overlay').addEventListener('click', function(e) {
             e.stopPropagation(); 
             
+            // Request Fullscreen on tap
+            let elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+
             bgMusic.play().catch(err => console.log("Audio play blocked:", err));
             musicStarted = true;
             

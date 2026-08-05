@@ -281,10 +281,10 @@
             video {
                 max-height: 55vh !important; 
             }
-            #page-5 h2 {
+            #page-6 h2 { /* Video page is now page 6 */
                 margin-bottom: 5px !important;
             }
-            #page-5 p {
+            #page-6 p { /* Video page is now page 6 */
                 margin-bottom: 8px !important;
             }
         }
@@ -328,8 +328,17 @@
         </div>
     </div>
 
-    <!-- PAGE 3: The Birthday Sorry Note -->
+    <!-- PAGE 3: Granted (NEW) -->
     <div id="page-3" class="page">
+        <div class="glass-box">
+            <h2>Granted..!</h2>
+            <p>I have never taken you for granted, and I never will. When it comes to you, I leave my ego and self respect completely behind.</p>
+            <p>If my actions ever made you feel otherwise, I am truly sorry from the bottom of my heart. 🥺</p>
+        </div>
+    </div>
+
+    <!-- PAGE 4: The Birthday Sorry Note -->
+    <div id="page-4" class="page">
         <div class="glass-box">
             <h2>I'm also sorry... 🥺</h2>
             <p>You made my birthday so incredibly special on <span class="highlight">March 31st</span>, and it genuinely breaks my heart that I couldn't do the same for you today.</p>
@@ -338,8 +347,8 @@
         </div>
     </div>
 
-    <!-- PAGE 4: The Gift Teaser -->
-    <div id="page-4" class="page">
+    <!-- PAGE 5: The Gift Teaser -->
+    <div id="page-5" class="page">
         <div class="glass-box">
             <h2 style="font-size: 3rem;">However... ✨</h2>
             <p style="font-size: 1.4rem; font-weight: 700; margin-top: 20px;">Since I couldn't be there in person, I arranged a little something for you.</p>
@@ -347,8 +356,8 @@
         </div>
     </div>
 
-    <!-- PAGE 5: Auto-playing Video -->
-    <div id="page-5" class="page">
+    <!-- PAGE 6: Auto-playing Video -->
+    <div id="page-6" class="page">
         <div class="glass-box" style="padding: 15px 20px;">
             <h2 style="font-size: 2.2rem; margin-bottom: 5px;">For You 🎂</h2>
             <p style="font-size: 1rem; margin-bottom: 5px;">These wonderful kids are cutting a cake just for your birthday!</p>
@@ -366,8 +375,8 @@
         </div>
     </div>
 
-    <!-- PAGE 6: Sarcastic Note -->
-    <div id="page-6" class="page">
+    <!-- PAGE 7: Sarcastic Note -->
+    <div id="page-7" class="page">
         <div class="glass-box">
             <h2>On another note... 😅</h2>
             <p style="font-size: 1.4rem; font-weight: 700; color: #e83e8c;">Start earning early rey!</p>
@@ -376,8 +385,8 @@
         </div>
     </div>
 
-    <!-- PAGE 7: Final Birthday Wishes -->
-    <div id="page-7" class="page">
+    <!-- PAGE 8: Final Birthday Wishes -->
+    <div id="page-8" class="page">
         <div class="glass-box">
             <h2>Happy Birthday Again! 🎉🥳</h2>
             <p style="font-size: 1.2rem;">Wishing you the happiest year ahead filled with endless joy, smiles, and love! ❤️🌻</p>
@@ -390,8 +399,8 @@
         </div>
     </div>
 
-    <!-- PAGE 8: Telugu Ending Message & Call/WhatsApp Buttons -->
-    <div id="page-8" class="page">
+    <!-- PAGE 9: Telugu Ending Message & Call/WhatsApp Buttons -->
+    <div id="page-9" class="page">
         <div class="glass-box" style="border-color: #ffb6c1; background: rgba(255,255,255,0.85);">
             <h2 style="font-size: 2.6rem; margin-bottom: 5px;">Inka chusindi chal le,</h2>
             <p style="font-size: 1.4rem; margin-top: 5px; margin-bottom: 5px;">vachi call or msg cheyu, waiting ikkada 👀</p>
@@ -438,7 +447,7 @@
         
         let musicStarted = false;
         let currentPage = 1;
-        const totalPages = 8;
+        const totalPages = 9; // Updated to 9 total pages
 
         // Fading Utility Function
         function fadeAudio(audio, targetVolume, duration) {
@@ -491,7 +500,7 @@
             currentPage = pageNumber;
             document.getElementById(`page-${currentPage}`).classList.add('active');
 
-            if (currentPage === 5) {
+            if (currentPage === 6) { // Video is now on page 6
                 tapIndicator.style.display = 'none';
                 document.body.style.cursor = 'default';
                 
@@ -501,14 +510,14 @@
                 video.play().catch(err => console.log("Video Autoplay blocked:", err));
                 fadeAudio(video, 1, 1500); 
 
-            } else if (currentPage === 6) {
+            } else if (currentPage === 7) { // Sarcastic note is now page 7
                 tapIndicator.style.display = 'block';
                 document.body.style.cursor = 'pointer';
                 
                 bgMusic.play();
                 fadeAudio(bgMusic, NORMAL_BG_VOLUME, 1500);
                 
-            } else if (currentPage === 8) {
+            } else if (currentPage === 9) { // Final page is now page 9
                 tapIndicator.style.display = 'none';
                 document.body.style.cursor = 'default';
             } else {
@@ -521,16 +530,16 @@
         document.body.addEventListener('click', function(e) {
             if (e.target.closest('a')) return;
 
-            if (musicStarted && currentPage !== 5 && currentPage < totalPages) {
+            if (musicStarted && currentPage !== 6 && currentPage < totalPages) { // Video is page 6
                 goToPage(currentPage + 1);
             }
         });
 
-        // Automatically transition to Page 6 when the video ends
+        // Automatically transition to Page 7 when the video ends
         video.addEventListener('ended', function() {
             fadeAudio(video, 0, 500); 
             setTimeout(() => {
-                goToPage(6);
+                goToPage(7); // Next page is 7
             }, 500); 
         });
 

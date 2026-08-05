@@ -17,6 +17,7 @@
             text-align: center;
             cursor: pointer; 
             user-select: none;
+            touch-action: none; 
         }
 
         /* Start Overlay */
@@ -83,7 +84,7 @@
             100% { transform: translateY(-20vh) rotate(360deg) scale(1.2); }
         }
 
-        /* Page Container */
+        /* Smoother Cinematic Page Transitions */
         .page {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -93,8 +94,13 @@
             justify-content: center;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-            transform: scale(0.92);
+            /* Ultra-smooth fade, scale, blur, and subtle drift */
+            transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1), 
+                        opacity 0.8s ease-in-out,
+                        filter 0.8s ease-in-out,
+                        visibility 0.9s;
+            transform: translateX(40px) scale(0.95); /* Gentle drift from right */
+            filter: blur(6px); /* Cinematic blur on out-of-focus pages */
             z-index: 1;
             padding: 15px;
             box-sizing: border-box;
@@ -102,8 +108,18 @@
         .page.active {
             opacity: 1;
             visibility: visible;
-            transform: scale(1);
+            transform: translateX(0) scale(1); /* Snaps beautifully into center */
+            filter: blur(0);
             z-index: 2;
+            transition-delay: 0.1s; /* Tiny delay makes it look highly animated */
+        }
+        .page.passed {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-40px) scale(0.95); /* Gentle drift to left */
+            filter: blur(6px);
+            z-index: 1;
+            transition-delay: 0s;
         }
 
         /* Glass Cards */
@@ -236,28 +252,25 @@
             background: transparent;
         }
 
-        /* Barely visible tap indicator */
-        .tap-indicator {
+        /* Swipe Indicator */
+        .swipe-indicator {
             position: fixed;
             bottom: 10px; 
             left: 50%;
             transform: translateX(-50%);
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: rgba(232, 62, 140, 0.8); 
             font-family: 'Quicksand', sans-serif;
             font-weight: 700;
             z-index: 100;
             pointer-events: none;
             opacity: 0;
-            animation: slowFade 2s infinite alternate;
+            animation: pulseSwipe 2.5s infinite;
         }
-        @keyframes slowFade {
-            0% { opacity: 0.3; }
-            100% { opacity: 0.9; }
-        }
-        @keyframes pulseTap {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.05); }
+        @keyframes pulseSwipe {
+            0% { opacity: 0.2; transform: translateX(-55%); }
+            50% { opacity: 0.9; transform: translateX(-45%); }
+            100% { opacity: 0.2; transform: translateX(-55%); }
         }
 
         /* Smart Scaling for Mobile */
@@ -281,10 +294,10 @@
             video {
                 max-height: 55vh !important; 
             }
-            #page-6 h2 { /* Video page is now page 6 */
+            #page-6 h2 { 
                 margin-bottom: 5px !important;
             }
-            #page-6 p { /* Video page is now page 6 */
+            #page-6 p { 
                 margin-bottom: 8px !important;
             }
         }
@@ -417,8 +430,8 @@
         </div>
     </div>
 
-    <!-- Tiny Tap Indicator -->
-    <div class="tap-indicator" id="tap-text">tap anywhere to continue</div>
+    <!-- Swipe Indicator -->
+    <div class="swipe-indicator" id="swipe-text">&larr; swipe to navigate &rarr;</div>
 
     <script>
         const emojis = ['🌻', '🍫', '🥤', '🛵', '🧋', '🌧️', '🏍️', '🚌', '✨', '🌸', '💖'];
@@ -440,14 +453,14 @@
         // Setup Media Elements
         const bgMusic = document.getElementById('bg-music');
         const video = document.getElementById('bday-video');
-        const tapIndicator = document.getElementById('tap-text');
+        const swipeIndicator = document.getElementById('swipe-text');
         
         const NORMAL_BG_VOLUME = 0.15;
         bgMusic.volume = NORMAL_BG_VOLUME; 
         
         let musicStarted = false;
         let currentPage = 1;
-        const totalPages = 9; // Updated to 9 total pages
+        const totalPages = 9; 
 
         // Fading Utility Function
         function fadeAudio(audio, targetVolume, duration) {
@@ -491,56 +504,109 @@
             this.style.opacity = '0';
             setTimeout(() => {
                 this.style.display = 'none';
-                tapIndicator.style.opacity = '1'; 
+                swipeIndicator.style.opacity = '1'; 
             }, 1200);
         });
 
-        function goToPage(pageNumber) {
-            document.getElementById(`page-${currentPage}`).classList.remove('active');
-            currentPage = pageNumber;
-            document.getElementById(`page-${currentPage}`).classList.add('active');
+        function goToPage(targetPage) {
+            if (targetPage < 1 || targetPage > totalPages) return;
 
-            if (currentPage === 6) { // Video is now on page 6
-                tapIndicator.style.display = 'none';
-                document.body.style.cursor = 'default';
+            let leavingPage = currentPage;
+            currentPage = targetPage;
+
+            // Apply Slide Classes
+            for (let i = 1; i <= totalPages; i++) {
+                const page = document.getElementById(`page-${i}`);
+                page.classList.remove('active', 'passed');
                 
-                fadeAudio(bgMusic, 0, 1500); 
-                
+                if (i < currentPage) {
+                    page.classList.add('passed'); // Slide left
+                } else if (i === currentPage) {
+                    page.classList.add('active'); // Center
+                }
+            }
+
+            // Handle Audio & Video Logic
+            if (currentPage === 6 && leavingPage !== 6) {
+                // Entering Video Page
+                swipeIndicator.style.display = 'none';
+                fadeAudio(bgMusic, 0, 1000); 
                 video.volume = 0; 
+                video.currentTime = 0; // RESTART VIDEO FROM BEGINNING
                 video.play().catch(err => console.log("Video Autoplay blocked:", err));
                 fadeAudio(video, 1, 1500); 
 
-            } else if (currentPage === 7) { // Sarcastic note is now page 7
-                tapIndicator.style.display = 'block';
-                document.body.style.cursor = 'pointer';
-                
+            } else if (leavingPage === 6 && currentPage !== 6) {
+                // Leaving Video Page
+                fadeAudio(video, 0, 800); 
                 bgMusic.play();
                 fadeAudio(bgMusic, NORMAL_BG_VOLUME, 1500);
-                
-            } else if (currentPage === 9) { // Final page is now page 9
-                tapIndicator.style.display = 'none';
-                document.body.style.cursor = 'default';
+                swipeIndicator.style.display = (currentPage === 9) ? 'none' : 'block';
+
             } else {
-                tapIndicator.style.display = 'block';
-                document.body.style.cursor = 'pointer';
+                // Normal Page logic
+                swipeIndicator.style.display = (currentPage === 9) ? 'none' : 'block';
             }
         }
 
-        // Main Tap to advance pages
-        document.body.addEventListener('click', function(e) {
-            if (e.target.closest('a')) return;
+        // SWIPE LOGIC
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let isDragging = false;
+        const minSwipeDistance = 40; // Pixels needed to register a swipe
 
-            if (musicStarted && currentPage !== 6 && currentPage < totalPages) { // Video is page 6
-                goToPage(currentPage + 1);
-            }
+        // Touch events for mobile
+        document.body.addEventListener('touchstart', e => {
+            if (e.target.closest('a')) return; // Ignore buttons
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        document.body.addEventListener('touchend', e => {
+            if (e.target.closest('a')) return;
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+
+        // Mouse events for desktop testing
+        document.body.addEventListener('mousedown', e => {
+            if (e.target.closest('a')) return;
+            isDragging = true;
+            touchStartX = e.clientX;
         });
+
+        document.body.addEventListener('mouseup', e => {
+            if (!isDragging || e.target.closest('a')) return;
+            isDragging = false;
+            touchEndX = e.clientX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (!musicStarted) return; // Ignore swipes before hitting start
+
+            let swipeDistance = touchEndX - touchStartX;
+
+            if (swipeDistance < -minSwipeDistance) {
+                // Swiped Left (Go Forward)
+                if (currentPage < totalPages) {
+                    goToPage(currentPage + 1);
+                }
+            } else if (swipeDistance > minSwipeDistance) {
+                // Swiped Right (Go Backward)
+                if (currentPage > 1) {
+                    goToPage(currentPage - 1);
+                }
+            }
+        }
 
         // Automatically transition to Page 7 when the video ends
         video.addEventListener('ended', function() {
-            fadeAudio(video, 0, 500); 
-            setTimeout(() => {
-                goToPage(7); // Next page is 7
-            }, 500); 
+            if (currentPage === 6) {
+                fadeAudio(video, 0, 500); 
+                setTimeout(() => {
+                    goToPage(7); 
+                }, 500); 
+            }
         });
 
         // 🌻 A special function for a special friend 🌻
